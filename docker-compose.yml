@@ -1,0 +1,22 @@
+version: "3"
+services:
+  extractor-service:
+    build:
+      context: extractor
+      dockerfile: DockerFile
+    image: extractor-service
+    ports:
+      - "3001:3001"
+    
+  loader-service:
+    build:
+      context: loader
+      dockerfile: DockerFile
+    image: loader-service
+    environment: 
+      - MONGODB_CONNSTR=mongodb://root:root@mongodb-service
+  mongodb-service:
+    image: mongo:5.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
